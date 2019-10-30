@@ -51,7 +51,6 @@ namespace MyFactory.ViewModels
         public ICommand SaveCmd { get { return new RelayCommand(OnSaveTest, AlwaysFalse); } }
         public ICommand NewCmd { get { return new RelayCommand(OnNewTest, AlwaysFalse); } }
         public ICommand OpenCmd { get { return new RelayCommand(OnOpenTest, AlwaysFalse); } }
-        public ICommand ShowAboutDialogCmd { get { return new RelayCommand(OnShowAboutDialog, AlwaysTrue); } }
         public ICommand ExitCmd { get { return new RelayCommand(OnExitApp, AlwaysTrue); } }
 
         private bool AlwaysTrue() { return true; }
@@ -103,12 +102,7 @@ namespace MyFactory.ViewModels
                 Log.Info("Opening file: " + settings.FileName);
             }
         }
-        private void OnShowAboutDialog()
-        {
-            Log.Info("Opening About dialog");
-            AboutViewModel dialog = new AboutViewModel();
-            var result = DialogService.ShowDialog<About>(this, dialog);
-        }
+       
         private void OnExitApp()
         {
             System.Windows.Application.Current.MainWindow.Close();

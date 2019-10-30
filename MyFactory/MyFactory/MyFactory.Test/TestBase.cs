@@ -11,8 +11,8 @@ namespace MyFactory.Test
         public TestContext TestContext { get; set; }
 
         private Stopwatch Stopwatch { get; set; }
-   
-        [SetUp]
+
+        [OneTimeSetUp]
         public void Initialization()
         {
             Stopwatch = new Stopwatch();
@@ -21,16 +21,14 @@ namespace MyFactory.Test
 
         [TearDown]
         public void End()
-        {         
-            Stopwatch.Stop();
-            string filename = TestContext.TestDirectory + "/TestsPerformance.txt";
-            string text = "";        
+        {
+            Stopwatch.Stop();           
+            string filename = TestContext.CurrentContext.TestDirectory + "/TestsPerformance.txt";
+            string text = null;
             if (!File.Exists(filename))
-                text = "Unit Test run on " + DateTime.Now.ToShortDateString() + " "
-                            + DateTime.Now.ToShortTimeString() + Environment.NewLine;
-            text += TestContext.Test + " " + this.Stopwatch.Elapsed.ToString(@"mm\:ss\.fffffff", null);
-            text += " ";
-            File.AppendAllText(filename, text);     
+                text = "Unit Test run on " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + Environment.NewLine;
+            text += TestContext.CurrentContext.Test + "" + this.Stopwatch.Elapsed.ToString(@"mm\:ss\.fffffff",null) + Environment.NewLine;           
+            File.AppendAllText(filename, text);
         }
     }
 }
